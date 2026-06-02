@@ -1,0 +1,344 @@
+# SKILL ASSESSMENT – II
+
+## IMPLEMENTATION OF DISTANCE VECTOR ROUTING PROTOCOL (RIP)
+
+### Submitted By
+
+**Name:** ADHAVAN K
+
+**Register Number:** 212223060009
+
+**Department:** Electronics and Communication Engineering
+
+**Year/Semester:** III Year
+
+---
+
+# AIM
+
+To implement Distance Vector Routing Protocol (RIP) using Cisco Packet Tracer and verify communication between different networks through dynamic routing.
+
+---
+
+# OBJECTIVES
+
+1. To understand the concept of dynamic routing.
+2. To configure RIP Version 2 on routers.
+3. To establish communication between different networks.
+4. To verify routing table updates.
+5. To test end-to-end connectivity between hosts.
+
+---
+
+# SOFTWARE REQUIREMENTS
+
+* Cisco Packet Tracer
+
+---
+
+# HARDWARE REQUIREMENTS
+
+| S.No | Device                        | Quantity |
+| ---- | ----------------------------- | -------- |
+| 1    | PC                            | 2        |
+| 2    | Switch                        | 2        |
+| 3    | Router                        | 2        |
+| 4    | Copper Straight Through Cable | Multiple |
+| 5    | Serial DCE Cable              | 1        |
+
+---
+
+# NETWORK TOPOLOGY
+
+(Insert Cisco Packet Tracer Topology Screenshot)
+
+---
+
+# IP ADDRESSING TABLE
+
+| Device  | Interface     | IP Address  | Subnet Mask     |
+| ------- | ------------- | ----------- | --------------- |
+| PC0     | FastEthernet0 | 192.168.1.2 | 255.255.255.0   |
+| Router0 | Fa0/0         | 192.168.1.1 | 255.255.255.0   |
+| Router0 | S0/0/0        | 10.0.0.1    | 255.255.255.252 |
+| Router1 | S0/0/0        | 10.0.0.2    | 255.255.255.252 |
+| Router1 | Fa0/0         | 192.168.2.1 | 255.255.255.0   |
+| PC1     | FastEthernet0 | 192.168.2.2 | 255.255.255.0   |
+
+---
+
+# THEORY
+
+Routing Information Protocol (RIP) is a Distance Vector Routing Protocol used to exchange routing information automatically between routers. RIP determines the best route based on hop count. The route with the lowest hop count is selected as the preferred route.
+
+RIP periodically sends routing updates every 30 seconds using UDP Port 520. RIP Version 2 supports subnet masks and classless routing.
+
+### Features of RIP
+
+* Distance Vector Routing Protocol
+* Uses Hop Count as Metric
+* Maximum Hop Count = 15
+* Dynamic Route Learning
+* Periodic Routing Updates
+* Uses UDP Port 520
+* Easy Configuration
+
+---
+
+# WORKING PRINCIPLE
+
+### Step 1: Route Discovery
+
+Each router identifies directly connected networks.
+
+### Step 2: RIP Advertisement
+
+Routers exchange routing tables every 30 seconds.
+
+### Step 3: Route Learning
+
+Each router learns remote networks through RIP updates.
+
+### Step 4: Best Route Selection
+
+The route with minimum hop count is selected.
+
+### Step 5: Packet Forwarding
+
+Packets are forwarded according to the routing table.
+
+---
+
+# PROCEDURE
+
+### PC Configuration
+
+#### PC0
+
+IP Address : 192.168.1.2
+
+Subnet Mask : 255.255.255.0
+
+Default Gateway : 192.168.1.1
+
+#### PC1
+
+IP Address : 192.168.2.2
+
+Subnet Mask : 255.255.255.0
+
+Default Gateway : 192.168.2.1
+
+---
+
+# ROUTER CONFIGURATION
+
+## Router0
+
+enable
+
+configure terminal
+
+interface fastethernet0/0
+
+ip address 192.168.1.1 255.255.255.0
+
+no shutdown
+
+interface serial0/0/0
+
+ip address 10.0.0.1 255.255.255.252
+
+clock rate 64000
+
+no shutdown
+
+router rip
+
+version 2
+
+network 192.168.1.0
+
+network 10.0.0.0
+
+no auto-summary
+
+---
+
+## Router1
+
+enable
+
+configure terminal
+
+interface fastethernet0/0
+
+ip address 192.168.2.1 255.255.255.0
+
+no shutdown
+
+interface serial0/0/0
+
+ip address 10.0.0.2 255.255.255.252
+
+no shutdown
+
+router rip
+
+version 2
+
+network 192.168.2.0
+
+network 10.0.0.0
+
+no auto-summary
+
+---
+
+# RIP PACKET FLOW
+
+### Forward Path
+
+PC0 → Switch0 → Router0 → Router1 → Switch1 → PC1
+
+### Return Path
+
+PC1 → Switch1 → Router1 → Router0 → Switch0 → PC0
+
+(Insert RIP Packet Flow Diagram)
+
+---
+
+# ROUTING TABLE VERIFICATION
+
+### Router0
+
+R 192.168.2.0/24 [120/1] via 10.0.0.2
+
+### Router1
+
+R 192.168.1.0/24 [120/1] via 10.0.0.1
+
+---
+
+# TESTING CONNECTIVITY
+
+Command:
+
+ping 192.168.2.2
+
+### Output
+
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=126
+
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=126
+
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=126
+
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=126
+
+### Statistics
+
+Packets Sent = 4
+
+Packets Received = 4
+
+Packets Lost = 0
+
+---
+
+# OBSERVATIONS
+
+* RIP learned remote routes automatically.
+* Dynamic routing eliminated the need for static routes.
+* Successful communication was established.
+* Routing tables updated automatically.
+
+---
+
+# ADVANTAGES
+
+1. Easy to configure.
+2. Automatic route updates.
+3. Simple routing mechanism.
+4. Suitable for small networks.
+5. Low administrative overhead.
+
+---
+
+# DISADVANTAGES
+
+1. Slow convergence.
+2. Maximum hop count limited to 15.
+3. Generates periodic update traffic.
+4. Not suitable for large networks.
+
+---
+
+# APPLICATIONS
+
+* Educational Networking Labs
+* Small Office Networks
+* LAN Routing
+* Campus Networks
+* Basic Router Configuration Training
+
+---
+
+# RESULT
+
+The Distance Vector Routing Protocol (RIP) was successfully implemented using Cisco Packet Tracer. Dynamic route exchange was established between routers, and successful communication between different networks was verified through ping testing.
+
+---
+
+# VIVA QUESTIONS
+
+### 1. What is RIP?
+
+Routing Information Protocol.
+
+### 2. Which metric is used in RIP?
+
+Hop Count.
+
+### 3. What is the maximum hop count in RIP?
+
+15.
+
+### 4. Which port does RIP use?
+
+UDP Port 520.
+
+### 5. Which version supports VLSM?
+
+RIP Version 2.
+
+### 6. What is the administrative distance of RIP?
+
+120.
+
+### 7. What type of routing protocol is RIP?
+
+Distance Vector Routing Protocol.
+
+### 8. What command displays routing tables?
+
+show ip route
+
+### 9. Why is RIP called dynamic routing?
+
+Because routes are exchanged automatically.
+
+### 10. What is the update interval in RIP?
+
+30 seconds.
+
+---
+
+# REFERENCES
+
+1. Cisco Networking Academy.
+2. Cisco Packet Tracer User Guide.
+3. Data Communications and Networking – Behrouz A. Forouzan.
+4. Computer Networks – Andrew S. Tanenbaum.
+5. Routing and Switching Essentials – Cisco Press.

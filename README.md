@@ -1,3 +1,6 @@
+**DISTANCE VECTOR ROUTING PROTOCOL (RIP)**
+
+
 # Introduction
 
 Routing Information Protocol (RIP) is a dynamic routing protocol used in computer networks to exchange routing information between routers automatically. RIP helps routers determine the best path for forwarding packets using hop count as the routing metric.
